@@ -3,7 +3,8 @@
 
 using System;
 using System.Collections;
-class Book
+using System.Xml.Linq;
+class Book : IComparable, ICloneable
 {
     public string Name { get; set; }
 
@@ -28,6 +29,18 @@ class Book
         this.Name = Console.ReadLine();
         Console.WriteLine("\nВведите имя автора: ");
         this.Author = Console.ReadLine();
+    }
+
+    public int CompareTo(object obj)
+    {
+        if (obj is Book)
+            return Name.CompareTo((obj as Book).Name);
+
+        throw new NotImplementedException();
+    }
+    public object Clone()
+    {
+        return new Book(Name, Author);
     }
 }
 
